@@ -9,24 +9,26 @@ import lombok.Setter;
 @Setter
 public class Employee implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   private Long employeeId;
   private String firstName;
-  private String secondName;
+  private String lastName;
   private String position;
   private Boolean isMarried;
   private Double yearsInCompany;
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object obj) {
+    if (this == obj) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    Employee employee = (Employee) o;
+    Employee employee = (Employee) obj;
     return Objects.equals(firstName, employee.firstName) &&
-        Objects.equals(secondName, employee.secondName) &&
+        Objects.equals(lastName, employee.lastName) &&
         Objects.equals(position, employee.position) &&
         Objects.equals(isMarried, employee.isMarried) &&
         Objects.equals(yearsInCompany, employee.yearsInCompany);
@@ -34,11 +36,17 @@ public class Employee implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstName, secondName, position, isMarried, yearsInCompany);
+    return Objects.hash(firstName, lastName, position, isMarried, yearsInCompany);
   }
 
   @Override
   public String toString() {
-    return null;
+    return "Employee{" +
+        "firstName='" + firstName + '\'' +
+        ", secondName='" + lastName + '\'' +
+        ", position='" + position + '\'' +
+        ", isMarried=" + isMarried +
+        ", yearsInCompany=" + yearsInCompany +
+        '}';
   }
 }
