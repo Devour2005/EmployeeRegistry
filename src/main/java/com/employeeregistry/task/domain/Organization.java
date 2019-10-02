@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class Organization implements Serializable {
 
-  private Long orgId;
+  private Long id;
   private String orgName;
   private String orgPhone;
   private String orgAddress;

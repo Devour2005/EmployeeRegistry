@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class Employee implements Serializable {
 
-  private Long employeeId;
+  private Long id;
   private String firstName;
   private String secondName;
   private String position;

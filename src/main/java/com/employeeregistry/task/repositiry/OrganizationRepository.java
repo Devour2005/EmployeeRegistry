@@ -12,5 +12,4 @@ public class OrganizationRepository implements RegistryRepository<Organization> 
   public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
-
 }

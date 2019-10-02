@@ -12,7 +12,4 @@ public class EmployeeRepository implements RegistryRepository<Employee> {
   public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
-
-
-
 }
