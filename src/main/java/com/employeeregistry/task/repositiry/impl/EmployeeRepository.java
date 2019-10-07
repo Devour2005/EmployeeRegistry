@@ -21,47 +21,49 @@ public class EmployeeRepository implements IEmployeeRepository<Employee> {
 
   @Override
   public Employee get(Long id) {
-    String sql = "select * from employee where id = ?";
+    String sql = "SELECT * FROM employee WHERE id = ?";
     return jdbcTemplate.queryForObject(sql, new Object[]{id}, new EmployeeRowMapper());
   }
 
   @Override
   public int save(Employee e) {
     String query =
-        "insert into employee values('" + e.getFirstName() + "','"
-            + e.getLastName() + e.getPosition() + "','"
+        "INSERT INTO employee VALUES('" + e.getFirstName() + "','"
+            + e.getLastName() + e.getEmpPosition() + "','"
             + e.getIsMarried() + "','" + e.getYearsInCompany() + "')";
     return jdbcTemplate.update(query);
   }
 
   @Override
   public int update(Employee e) {
-    String query = "update employee set fisrtName='" + e.getFirstName() + "',secondName='"
-        + e.getLastName() + "', position='" + e.getPosition() + "',isMarried='" + e.getIsMarried()
-        + "' where id='" + e.getEmployeeId() + "' ";
+    String query = "UPDATE employee SET org_id='" + e.getOrgId()
+            + ", 'first_name= + '" + e.getFirstName() + "',last_name='"
+        + e.getLastName() + "', emp_position='" + e.getEmpPosition() + "',is_married='" + e.getIsMarried()
+        + "' WHERE id='" + e.getEmployeeId() + "' ";
     return jdbcTemplate.update(query);
   }
 
   @Override
   public int delete(Employee e) {
-    String query = "delete from employee where id='" + e.getEmployeeId() + "' ";
+    String query = "DELETE FROM employee WHERE id='" + e.getEmployeeId() + "' ";
     return jdbcTemplate.update(query);
   }
 
   @Override
   public List<Employee> getAll(String sql, RowMapper rse) {
-    return jdbcTemplate.query("select * from employee", rs -> {
+    return jdbcTemplate.query("SELECT * FROM employee", rs -> {
 
       List<Employee> employees = new ArrayList<>();
       while (rs.next()) {
-        Employee emp = new Employee();
-        emp.setEmployeeId(rs.getLong("ID"));
-        emp.setFirstName(rs.getString("FIRST_NAME"));
-        emp.setLastName(rs.getString("LAST_NAME"));
-        emp.setPosition(rs.getString("POSITION"));
-        emp.setIsMarried(rs.getBoolean("IS_MARRIED"));
-        emp.setYearsInCompany(rs.getDouble("YEARS_IN_COMPANY"));
-        employees.add(emp);
+        Employee employee = new Employee();
+        employee.setEmployeeId(rs.getLong("id"));
+        employee.setOrgId(rs.getLong("org_id"));
+        employee.setFirstName(rs.getString("first_name"));
+        employee.setLastName(rs.getString("last_name"));
+        employee.setEmpPosition(rs.getString("emp_position"));
+        employee.setIsMarried(rs.getBoolean("is_married"));
+        employee.setYearsInCompany(rs.getDouble("years_in_company"));
+        employees.add(employee);
       }
       return employees;
     });

@@ -22,55 +22,55 @@ public class OrganizationRepository implements IOrganizationRepository<Organizat
 
   @Override
   public Organization get(Long id) {
-    String sql = "select * from organization where id = ?";
+    String sql = "SELECT * FROM organization WHERE id = ?";
     return jdbcTemplate.queryForObject(sql, new Object[]{id}, new OrganizationRowMapper());
   }
 
   @Override
   public int save(Organization org) {
     String query =
-        "insert into organization values('" + org.getOrgName() + "','"
+        "INSERT INTO organization VALUES('" + org.getOrgName() + "','"
             + org.getOrgPhone() + "','" + org.getOrgAddress() + "','"
-            + org.getRegion() + "','" + org.getCountry()+ "','"
-            + org.getCity() + "','" + org.getIsActive() + "','"
-            + org.getAriaOfActivity() + "','" + org.getEmployees() + "')";
+            + org.getCountry()+ "','" + org.getCity() + "','"
+            + org.getIsActive() + "','" + org.getAriaOfActivity() + "','"
+            + org.getRegion()  + "','" + org.getEmployees() + "')";
     return jdbcTemplate.update(query);
   }
 
   @Override
   public int update(Organization org) {
-    String query = "update organization set orgName='" + org.getOrgName() + "', orgPhone='"
-        + org.getOrgPhone() + "', orgAddress='" + org.getOrgAddress() + "',region='" + org.getRegion()
-        + "',country='" + org.getCountry() + "', city='" + org.getCity() + "',isActive='" + org.getIsActive()
-        + "',ariaOfActivity='" + org.getAriaOfActivity() + "', numberOfOffices='" + org.getNumberOfOffices()
-        + "',employees='" + org.getEmployees()
-        + "' where id='" + org.getOrgId() + "' ";
+    String query = "UPDATE organization SET org_name='" + org.getOrgName() + "', org_phone='"
+        + org.getOrgPhone() + "', org_address='" + org.getOrgAddress()
+        + "', country='" + org.getCountry() + "', city='" + org.getCity() + "', is_active='" + org.getIsActive()
+        + "', aria_of_activity='" + org.getAriaOfActivity() + "', number_of_offices='" + org.getNumberOfOffices()
+        + "', region='" + org.getRegion()
+        + "', employees='" + org.getEmployees()
+        + "' WHERE id='" + org.getOrgId() + "' ";
     return jdbcTemplate.update(query);
   }
 
   @Override
   public int delete(Organization org) {
-    String query = "delete from organization where id='" + org.getOrgId() + "' ";
+    String query = "DELETE FROM organization WHERE id='" + org.getOrgId() + "' ";
     return jdbcTemplate.update(query);
   }
 
   @Override
   public List<Organization> getAll(String sql, RowMapper rse) {
-    return jdbcTemplate.query("select * from organization", rs -> {
+    return jdbcTemplate.query("SELECT * FROM organization", rs -> {
 
       List<Organization> orgs = new ArrayList<>();
       while (rs.next()) {
         Organization organization = new Organization();
-        organization.setOrgId(rs.getLong("ID"));
-        organization.setOrgName(rs.getString("ORG_NAME"));
-        organization.setOrgPhone(rs.getString("ORG_PHONE"));
-        organization.setOrgAddress(rs.getString("ORG_ADDRESS"));
-        organization.setRegion(Enum.valueOf(Region.class, rs.getString("ORG_REGION")));
-        organization.setCountry(rs.getString("ORG_COUNTRY"));
-        organization.setCity(rs.getString("ORG_CITY"));
-        organization.setIsActive(rs.getBoolean("IS_ACTIVE"));
-        organization.setAriaOfActivity(rs.getString("ACTIVITY_ARIA"));
-        organization.setNumberOfOffices(rs.getInt("OFFICES_NUMBER"));
+        organization.setOrgName(rs.getString("org_name"));
+        organization.setOrgPhone(rs.getString("org_phone"));
+        organization.setOrgAddress(rs.getString("org_address"));
+        organization.setCountry(rs.getString("country"));
+        organization.setCity(rs.getString("city"));
+        organization.setIsActive(rs.getBoolean("is_active"));
+        organization.setAriaOfActivity(rs.getString("aria_of_activity"));
+        organization.setNumberOfOffices(rs.getInt("number_of_offices"));
+        organization.setRegion(Enum.valueOf(Region.class, rs.getString("region")));
         organization.setEmployees(new ArrayList<>());
 
         Employee employee = new EmployeeRowMapper().mapRow(rs, 0);

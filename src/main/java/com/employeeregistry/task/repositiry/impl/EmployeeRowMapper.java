@@ -12,12 +12,13 @@ public class EmployeeRowMapper implements RowMapper<Employee> {
   public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
 
     Employee employee = new Employee();
-    employee.setEmployeeId(rs.getLong("EMPLOYEE_ID"));
-    employee.setFirstName(rs.getString("FIRST_NAME"));
-    employee.setLastName(rs.getString("LAST_NAME"));
-    employee.setPosition(rs.getString("POSITION"));
-    employee.setIsMarried(rs.getBoolean("IS_MARRIED"));
-    employee.setYearsInCompany(rs.getDouble("YEARS_IN_COMPANY"));
+    employee.setEmployeeId(rs.getLong("id"));
+    employee.setOrgId(rs.getLong("org_id"));
+    employee.setFirstName(rs.getString("first_name"));
+    employee.setLastName(rs.getString("last_name"));
+    employee.setEmpPosition(rs.getString("emp_position"));
+    employee.setIsMarried(rs.getBoolean("is_married"));
+    employee.setYearsInCompany(rs.getDouble("years_in_company"));
     return employee;
   }
 }
