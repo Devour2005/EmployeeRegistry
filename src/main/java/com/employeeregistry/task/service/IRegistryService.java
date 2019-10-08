@@ -1,7 +1,6 @@
 package com.employeeregistry.task.service;
 
 import java.util.List;
-import org.springframework.jdbc.core.RowMapper;
 
 public interface IRegistryService<T> {
 
@@ -9,9 +8,9 @@ public interface IRegistryService<T> {
 
   int insert(T t);
 
-  int update(T t);
+  int update(Long id, T t);
 
-  int delete(T t);
+  int delete(Long id);
 
-  List<T> getAll(String sql, RowMapper rse);
+  List<T> getAll();
 }

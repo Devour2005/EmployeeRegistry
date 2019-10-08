@@ -7,7 +7,6 @@ import com.employeeregistry.task.repositiry.IOrganizationRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -38,25 +37,25 @@ public class OrganizationRepository implements IOrganizationRepository<Organizat
   }
 
   @Override
-  public int update(Organization org) {
+  public int update(Long id, Organization org) {
     String query = "UPDATE organization SET org_name='" + org.getOrgName() + "', org_phone='"
         + org.getOrgPhone() + "', org_address='" + org.getOrgAddress()
         + "', country='" + org.getCountry() + "', city='" + org.getCity() + "', is_active='" + org.getIsActive()
         + "', aria_of_activity='" + org.getAriaOfActivity() + "', number_of_offices='" + org.getNumberOfOffices()
         + "', region='" + org.getRegion()
         + "', employees='" + org.getEmployees()
-        + "' WHERE id='" + org.getOrgId() + "' ";
+        + "' WHERE id='" + id + "' ";
     return jdbcTemplate.update(query);
   }
 
   @Override
-  public int delete(Organization org) {
-    String query = "DELETE FROM organization WHERE id='" + org.getOrgId() + "' ";
+  public int delete(Long id) {
+    String query = "DELETE FROM organization WHERE id='" + id + "' ";
     return jdbcTemplate.update(query);
   }
 
   @Override
-  public List<Organization> getAll(String sql, RowMapper rse) {
+  public List<Organization> getAll() {
     return jdbcTemplate.query("SELECT * FROM organization", rs -> {
 
       List<Organization> orgs = new ArrayList<>();

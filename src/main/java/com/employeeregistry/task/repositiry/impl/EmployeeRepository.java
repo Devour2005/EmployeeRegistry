@@ -35,22 +35,24 @@ public class EmployeeRepository implements IEmployeeRepository<Employee> {
   }
 
   @Override
-  public int update(Employee e) {
+  public int update(Long id, Employee e) {
     String query = "UPDATE employee SET org_id='" + e.getOrgId()
             + ", 'first_name= + '" + e.getFirstName() + "',last_name='"
         + e.getLastName() + "', emp_position='" + e.getEmpPosition() + "',is_married='" + e.getIsMarried()
-        + "' WHERE id='" + e.getEmployeeId() + "' ";
+        + "' WHERE id='" + id + "' ";
     return jdbcTemplate.update(query);
   }
 
   @Override
-  public int delete(Employee e) {
-    String query = "DELETE FROM employee WHERE id='" + e.getEmployeeId() + "' ";
+  public int delete(Long id) {
+    String query = "DELETE FROM employee WHERE id='" + id + "' ";
     return jdbcTemplate.update(query);
   }
 
+
+
   @Override
-  public List<Employee> getAll(String sql, RowMapper rse) {
+  public List<Employee> getAll() {
     return jdbcTemplate.query("SELECT * FROM employee", rs -> {
 
       List<Employee> employees = new ArrayList<>();
