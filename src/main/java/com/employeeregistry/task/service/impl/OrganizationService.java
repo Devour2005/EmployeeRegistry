@@ -16,32 +16,34 @@ public class OrganizationService implements IOrganizationService<Organization> {
   private IEmployeeRepository<Employee> empRepository;
 
   @Autowired
-  public OrganizationService(IOrganizationRepository<Organization> orgRepository) {
+  public OrganizationService(IOrganizationRepository<Organization> orgRepository,
+                             IEmployeeRepository<Employee> empRepository) {
     this.orgRepository = orgRepository;
+    this.empRepository = empRepository;
   }
 
   @Override
   public Organization get(Long id) {
-    return this.orgRepository.get(id);
+    return orgRepository.get(id);
   }
 
   @Override
-  public int insert(Organization organization) {
-    return this.orgRepository.save(organization);
+  public Organization insert(Organization organization) {
+    return orgRepository.insert(organization);
   }
 
   @Override
-  public int update(Long id, Organization organization) {
-    return this.orgRepository.update(id, organization);
+  public Organization update(Long id, Organization organization) {
+    return orgRepository.update(id, organization);
   }
 
   @Override
-  public int delete(Long id) {
-    return this.orgRepository.delete(id);
+  public void delete(Long id) {
+     orgRepository.delete(id);
   }
 
   @Override
-  public List<Organization> getAll() {
-    return this.orgRepository.getAll();
+  public List<Organization> findAll() {
+    return orgRepository.findAll();
   }
 }

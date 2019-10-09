@@ -23,22 +23,22 @@ public class EmployeeService implements IEmployeeService<Employee> {
   }
 
   @Override
-  public int insert(Employee employee) {
-    return this.employeeRepository.save(employee);
+  public Employee insert(Employee employee) {
+    return this.employeeRepository.insert(employee);
   }
 
   @Override
-  public int update(Long id, Employee employee) {
+  public Employee update(Long id, Employee employee) {
     return this.employeeRepository.update(id, employee);
   }
 
   @Override
-  public int delete(Long id) {
-    return this.employeeRepository.delete(id);
+  public void delete(Long id) {
+    this.employeeRepository.delete(id);
   }
 
   @Override
-  public List<Employee> getAll() {
-    return this.employeeRepository.getAll();
+  public List<Employee> findAll() {
+    return this.employeeRepository.findAll();
   }
 }

@@ -6,11 +6,11 @@ public interface IRegistryRepository<T> {
 
   T get(Long id);
 
-  int save(T t);
+  T insert(T t);
 
-  int update(Long id, T t);
+  T update(Long id, T t);
 
-  int delete(Long id);
+  void delete(Long id);
 
-  List<T> getAll();
+  List<T> findAll();
 }

@@ -6,11 +6,11 @@ public interface IRegistryService<T> {
 
   T get(Long id);
 
-  int insert(T t);
+  T insert(T t);
 
-  int update(Long id, T t);
+  T update(Long id, T t);
 
-  int delete(Long id);
+  void delete(Long id);
 
-  List<T> getAll();
+  List<T> findAll();
 }
