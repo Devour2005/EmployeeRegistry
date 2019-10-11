@@ -3,32 +3,35 @@ package com.employeeregistry.task.repositiry.impl;
 import com.employeeregistry.task.domain.Employee;
 import com.employeeregistry.task.domain.Organization;
 import com.employeeregistry.task.domain.Region;
+import com.employeeregistry.task.repositiry.AbstractRepository;
 import com.employeeregistry.task.repositiry.IOrganizationRepository;
-
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class OrganizationRepository implements IOrganizationRepository<Organization> {
-
-    private JdbcTemplate jdbcTemplate;
+public class OrganizationRepository extends AbstractRepository implements
+    IOrganizationRepository<Organization> {
 
     @Autowired
     public OrganizationRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        super(jdbcTemplate);
     }
 
     @Override
     public Organization get(Long id) {
-        String sql = "SELECT * FROM organization WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new OrganizationRowMapper());
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM organization WHERE id = ?",
+                new Object[]{id}, new OrganizationRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

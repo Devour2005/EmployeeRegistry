@@ -41,4 +41,14 @@ public class EmployeeService implements IEmployeeService<Employee> {
   public List<Employee> findAll() {
     return this.employeeRepository.findAll();
   }
+
+  @Override
+  public Employee insert(Long id, Employee t) {
+    return null;
+  }
+
+  @Override
+  public void deleteByParentId(Long id) {
+
+  }
 }

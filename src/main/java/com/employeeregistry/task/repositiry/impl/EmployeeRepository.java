@@ -1,26 +1,21 @@
 package com.employeeregistry.task.repositiry.impl;
 
 import com.employeeregistry.task.domain.Employee;
+import com.employeeregistry.task.repositiry.AbstractRepository;
 import com.employeeregistry.task.repositiry.IEmployeeRepository;
-
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmployeeRepository implements IEmployeeRepository<Employee> {
+public class EmployeeRepository extends AbstractRepository implements IEmployeeRepository<Employee> {
 
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
     public EmployeeRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        super(jdbcTemplate);
     }
 
     @Override
@@ -29,7 +24,7 @@ public class EmployeeRepository implements IEmployeeRepository<Employee> {
     }
 
     @Override
-    public Employee insert(Employee e) {
+    public Employee insert(Long id, Employee e) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String query = "INSERT INTO employee(org_id, org_id, last_name, emp_position, is_married, years_in_company) " +
                 "VALUES(?, ?, ?, ?, ?, ?)";
@@ -78,5 +73,10 @@ public class EmployeeRepository implements IEmployeeRepository<Employee> {
             }
             return employees;
         });
+    }
+
+    @Override
+    public void deleteByParentId(Long id) {
+
     }
 }
