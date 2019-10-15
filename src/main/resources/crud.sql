@@ -3,7 +3,9 @@ SELECT * FROM employee WHERE id = ?;
 INSERT INTO employee VALUES(?,?,?,?,?,?);
 UPDATE employee SET org_id, fisrt_name, last_name, emp_position, is_married, years_in_company VALUES(?, ?, ?, ?, ?, ?) WHERE id=? AND org_id =?;
 DELETE FROM employee WHERE id = ?;
+DELETE FROM employee WHERE org_id = ?;
 SELECT * FROM employee;
+SELECT * FROM employee WHERE org_id = ?;
 
 SELECT * FROM organization WHERE id = ?;
 INSERT INTO organization VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
