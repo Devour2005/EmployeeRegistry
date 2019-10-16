@@ -35,7 +35,7 @@ CREATE TABLE public.employee
    emp_position character varying(100) COLLATE pg_catalog."default",
    is_married boolean,
    years_in_company double precision,
-   UNIQUE(first_name, last_name, emp_position),
+   UNIQUE(org_id, first_name, last_name, emp_position),
    FOREIGN KEY (org_id) REFERENCES
    public.organization (id) ON DELETE CASCADE ON UPDATE CASCADE
 )
