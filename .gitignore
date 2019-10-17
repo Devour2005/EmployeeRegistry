@@ -3,10 +3,12 @@ HELP.md
 build/
 !**/src/main/**
 !**/src/test/**
-gradlew
-gradlew.bat
-gradle-wrapper.jar
-gradle-wrapper.properties
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
 
 ### STS ###
 .apt_generated
