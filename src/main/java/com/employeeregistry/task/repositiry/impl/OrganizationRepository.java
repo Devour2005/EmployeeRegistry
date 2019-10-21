@@ -50,7 +50,7 @@ public class OrganizationRepository implements IOrganizationRepository<Organizat
             ps.setString(8, org.getAriaOfActivity());
             ps.setInt(9, org.getNumberOfOffices());
             return ps;
-        });
+        }, keyHolder);
         long orgId = keyHolder.getKey().longValue();
         return get(orgId);
     }
@@ -66,7 +66,7 @@ public class OrganizationRepository implements IOrganizationRepository<Organizat
 
     @Override
     public void delete(Long id) {
-        jdbcTemplate.update("DELETE FROM organization WHERE id=?", id);
+        jdbcTemplate.update("DELETE FROM organization WHERE id = ?", id);
     }
 
     @Override

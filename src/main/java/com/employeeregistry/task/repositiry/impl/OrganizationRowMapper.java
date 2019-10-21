@@ -14,6 +14,7 @@ public class OrganizationRowMapper implements RowMapper<Organization> {
   public Organization mapRow(ResultSet rs, int rowNum) throws SQLException {
 
     Organization organization = new Organization();
+    organization.setId(rs.getLong("id"));
     organization.setOrgName(rs.getString("org_name"));
     organization.setOrgPhone(rs.getString("org_phone"));
     organization.setOrgAddress(rs.getString("org_address"));

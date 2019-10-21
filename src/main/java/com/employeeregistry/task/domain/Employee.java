@@ -11,7 +11,7 @@ public class Employee implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private Long employeeId;
+  private Long id;
   private Long orgId;
   private String firstName;
   private String lastName;
@@ -20,35 +20,34 @@ public class Employee implements Serializable {
   private Double yearsInCompany;
 
   @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null || getClass() != obj.getClass()) {
-      return false;
-    }
-    Employee employee = (Employee) obj;
-    return Objects.equals(firstName, employee.firstName) &&
-        Objects.equals(orgId, employee.orgId) &&
-        Objects.equals(lastName, employee.lastName) &&
-        Objects.equals(empPosition, employee.empPosition) &&
-        Objects.equals(isMarried, employee.isMarried) &&
-        Objects.equals(yearsInCompany, employee.yearsInCompany);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Employee employee = (Employee) o;
+    return id.equals(employee.id) &&
+            orgId.equals(employee.orgId) &&
+            firstName.equals(employee.firstName) &&
+            lastName.equals(employee.lastName) &&
+            Objects.equals(empPosition, employee.empPosition) &&
+            Objects.equals(isMarried, employee.isMarried) &&
+            Objects.equals(yearsInCompany, employee.yearsInCompany);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(orgId, firstName, lastName, empPosition, isMarried, yearsInCompany);
+    return Objects.hash(id, orgId, firstName, lastName, empPosition, isMarried, yearsInCompany);
   }
 
   @Override
   public String toString() {
     return "Employee{" +
-        "firstName='" + firstName + '\'' +
-        ", secondName='" + lastName + '\'' +
-        ", position='" + empPosition + '\'' +
-        ", isMarried=" + isMarried +
-        ", yearsInCompany=" + yearsInCompany +
-        '}';
+            "id=" + id +
+            ", orgId=" + orgId +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", empPosition='" + empPosition + '\'' +
+            ", isMarried=" + isMarried +
+            ", yearsInCompany=" + yearsInCompany +
+            '}';
   }
 }

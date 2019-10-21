@@ -3,7 +3,7 @@ package com.employeeregistry.task.repositiry.impl;
 import com.employeeregistry.task.domain.Employee;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+
 import org.springframework.jdbc.core.RowMapper;
 
 public class EmployeeRowMapper implements RowMapper<Employee> {
@@ -12,7 +12,7 @@ public class EmployeeRowMapper implements RowMapper<Employee> {
   public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
 
     Employee employee = new Employee();
-    employee.setEmployeeId(rs.getLong("id"));
+    employee.setId(rs.getLong("id"));
     employee.setOrgId(rs.getLong("org_id"));
     employee.setFirstName(rs.getString("first_name"));
     employee.setLastName(rs.getString("last_name"));

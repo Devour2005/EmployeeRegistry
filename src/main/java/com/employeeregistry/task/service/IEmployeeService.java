@@ -1,5 +1,8 @@
 package com.employeeregistry.task.service;
 
-public interface IEmployeeService<Employee> extends IRegistryService<Employee> {
+import java.util.List;
 
+public interface IEmployeeService<Employee> extends IRegistryService<Employee> {
+    List<Employee> findAllByOrgId(Long id);
+    void deleteAllByOrgId(Long id);
 }
