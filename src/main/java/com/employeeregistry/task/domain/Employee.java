@@ -11,7 +11,7 @@ public class Employee implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private Long employeeId;
+  private Long id;
   private Long orgId;
   private String firstName;
   private String lastName;
@@ -29,6 +29,8 @@ public class Employee implements Serializable {
     }
     Employee employee = (Employee) obj;
     return Objects.equals(firstName, employee.firstName) &&
+        Objects.equals(lastName, employee.lastName) &&
+        Objects.equals(position, employee.position) &&
         Objects.equals(orgId, employee.orgId) &&
         Objects.equals(lastName, employee.lastName) &&
         Objects.equals(empPosition, employee.empPosition) &&
@@ -44,8 +46,9 @@ public class Employee implements Serializable {
   @Override
   public String toString() {
     return "Employee{" +
-        "firstName='" + firstName + '\'' +
-        ", secondName='" + lastName + '\'' +
+        "  id='" + id + '\'' +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
         ", position='" + empPosition + '\'' +
         ", isMarried=" + isMarried +
         ", yearsInCompany=" + yearsInCompany +
