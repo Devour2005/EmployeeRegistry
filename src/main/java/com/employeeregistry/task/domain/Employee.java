@@ -21,16 +21,19 @@ public class Employee implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Employee employee = (Employee) o;
-    return id.equals(employee.id) &&
-            orgId.equals(employee.orgId) &&
-            firstName.equals(employee.firstName) &&
-            lastName.equals(employee.lastName) &&
-            Objects.equals(empPosition, employee.empPosition) &&
-            Objects.equals(isMarried, employee.isMarried) &&
-            Objects.equals(yearsInCompany, employee.yearsInCompany);
+    return Objects.equals(orgId, employee.orgId) &&
+        Objects.equals(firstName, employee.firstName) &&
+        Objects.equals(lastName, employee.lastName) &&
+        Objects.equals(empPosition, employee.empPosition) &&
+        Objects.equals(isMarried, employee.isMarried) &&
+        Objects.equals(yearsInCompany, employee.yearsInCompany);
   }
 
   @Override

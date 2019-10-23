@@ -10,7 +10,6 @@ public class OrganizationRowMapper implements RowMapper<Organization> {
 
   @Override
   public Organization mapRow(ResultSet rs, int rowNum) throws SQLException {
-
     Organization organization = new Organization();
     organization.setId(rs.getLong("id"));
     organization.setOrgName(rs.getString("org_name"));

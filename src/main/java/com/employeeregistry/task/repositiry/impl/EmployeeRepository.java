@@ -25,7 +25,7 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
     public Employee get(Long id) {
         try {
             return jdbcTemplate
-                .queryForObject("SELECT * FROM employee WHERE id = ?", new Object[]{id},
+                .queryForObject("SELECT * FROM employee WHERE id = ?", new Object[] {id},
                     new EmployeeRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return null;
@@ -69,7 +69,7 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
 
     @Override
     public List<Employee> findAll() {
-        return jdbcTemplate.query("SELECT * FROM employee", this::getEmployees);
+      return jdbcTemplate.query("SELECT * FROM employee", this::mapEmployees);
     }
 
     @Override
@@ -80,18 +80,18 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
     @Override
     public List<Employee> findAllByOrgId(Long orgId) {
         return jdbcTemplate.query("SELECT * FROM employee WHERE org_id = ?", new Object[]{orgId},
-            this::getEmployees);
+            this::mapEmployees);
     }
 
     @Override
     public List<Employee> findByPosition(String position) {
         return jdbcTemplate
             .query("SELECT * FROM employee WHERE emp_position = ?", new Object[]{position},
-                this::getEmployees);
+                this::mapEmployees);
 
     }
 
-    private List<Employee> getEmployees(ResultSet rs) throws SQLException {
+  private List<Employee> mapEmployees(ResultSet rs) throws SQLException {
         List<Employee> employees = new ArrayList<>();
         while (rs.next()) {
             Employee employee = new Employee();

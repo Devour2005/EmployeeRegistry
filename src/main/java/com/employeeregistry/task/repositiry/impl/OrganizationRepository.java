@@ -79,15 +79,15 @@ public class OrganizationRepository extends AbstractRepository implements
   @Override
   public List<Organization> getOrganizationsByAriaOfActivity(String aria) {
     return jdbcTemplate.query("SELECT * FROM organization WHERE aria_of_activity = ?",
-        new Object[]{aria}, this::getOrganizations);
+        new Object[]{aria}, this::mapOrganizations);
   }
 
   @Override
   public List<Organization> findAll() {
-    return jdbcTemplate.query("SELECT * FROM organization", this::getOrganizations);
+    return jdbcTemplate.query("SELECT * FROM organization", this::mapOrganizations);
   }
 
-  private List<Organization> getOrganizations(ResultSet rs) throws SQLException {
+  private List<Organization> mapOrganizations(ResultSet rs) throws SQLException {
     List<Organization> orgs = new ArrayList<>();
     while (rs.next()) {
       Organization organization = new Organization();
