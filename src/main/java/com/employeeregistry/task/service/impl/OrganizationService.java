@@ -39,7 +39,8 @@ public class OrganizationService implements IOrganizationService<Organization> {
 
   @Override
   public void delete(Long id) {
-    empRepository.deleteByParentId(id);
+    orgRepository.get(id);
+    empRepository.deleteAllByOrgId(id);
     orgRepository.delete(id);
   }
 

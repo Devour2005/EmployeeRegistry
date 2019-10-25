@@ -2,7 +2,7 @@ package com.employeeregistry.task.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/organization")
+@RestController("/organizations")
 public class OrganizationController {
 
 }

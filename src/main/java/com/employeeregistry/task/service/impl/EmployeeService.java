@@ -23,11 +23,6 @@ public class EmployeeService implements IEmployeeService<Employee> {
   }
 
   @Override
-  public Employee insert(Employee employee) {
-    return this.employeeRepository.insert(employee);
-  }
-
-  @Override
   public Employee update(Long id, Employee employee) {
     return this.employeeRepository.update(id, employee);
   }
@@ -43,12 +38,17 @@ public class EmployeeService implements IEmployeeService<Employee> {
   }
 
   @Override
-  public Employee insert(Long id, Employee t) {
-    return null;
+  public Employee insert(Long id, Employee employee) {
+    return employeeRepository.insert(id, employee);
   }
 
   @Override
-  public void deleteByParentId(Long id) {
+  public List<Employee> findAllByOrgId(Long id) {
+    return employeeRepository.findAllByOrgId(id);
+  }
 
+  @Override
+  public void deleteAllByOrgId(Long id) {
+    employeeRepository.deleteAllByOrgId(id);
   }
 }
