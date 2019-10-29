@@ -1,9 +1,9 @@
-package com.employeeregistry.task.repositiry.impl;
+package com.employeeregistry.task.repository.impl;
 
 import com.employeeregistry.task.domain.Organization;
 import com.employeeregistry.task.domain.Region;
-import com.employeeregistry.task.repositiry.AbstractRepository;
-import com.employeeregistry.task.repositiry.IOrganizationRepository;
+import com.employeeregistry.task.repository.AbstractRepository;
+import com.employeeregistry.task.repository.IOrganizationRepository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,7 +45,7 @@ public class OrganizationRepository extends AbstractRepository implements
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
     jdbcTemplate.update(connection -> {
       PreparedStatement ps = connection
-          .prepareStatement(query);
+          .prepareStatement(query, new String[] { "id"});
       ps.setString(1, org.getOrgName());
       ps.setString(2, org.getOrgPhone());
       ps.setString(3, org.getOrgAddress());
@@ -57,7 +57,13 @@ public class OrganizationRepository extends AbstractRepository implements
       ps.setInt(9, org.getNumberOfOffices());
       return ps;
     }, keyHolder);
-    long orgId = keyHolder.getKey().longValue();
+
+    Long orgId;
+    if (keyHolder.getKeys().size() > 1) {
+      orgId = (Long)keyHolder.getKeys().get("id");
+    } else {
+      orgId= keyHolder.getKey().longValue();
+    }
     return get(orgId);
   }
 

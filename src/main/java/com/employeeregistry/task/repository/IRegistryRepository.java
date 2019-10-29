@@ -1,4 +1,4 @@
-package com.employeeregistry.task.repositiry;
+package com.employeeregistry.task.repository;
 
 import java.util.List;
 

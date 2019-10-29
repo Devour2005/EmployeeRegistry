@@ -1,12 +1,15 @@
 package com.employeeregistry.task.service;
 
-
 import java.util.List;
 
-public interface IEmployeeService<Employee> extends IRegistryService<Employee> {
-    Employee insert(Long id, Employee employee);
+public interface IEmployeeService<Employee> extends IRegistryService<Employee>,
+    IYearsFilter<Employee> {
 
-    List<Employee> findAllByOrgId(Long id);
+  Employee insert(Long id, Employee employee);
 
-    void deleteAllByOrgId(Long id);
+  List<Employee> findAllByOrgId(Long id);
+
+  void deleteAllByOrgId(Long id);
+
+  List<Employee> findByPosition(String position);
 }

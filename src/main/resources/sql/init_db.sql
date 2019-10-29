@@ -6,7 +6,7 @@ CREATE TYPE region AS ENUM ('EUROPE', 'ASIA', 'AMERICA', 'AFRICA', 'OCEANIA');
 
 CREATE TABLE public.organization
 (
-   id serial NOT NULL PRIMARY KEY,
+   id bigserial NOT NULL PRIMARY KEY,
    org_name character varying(100) COLLATE pg_catalog."default",
    org_phone character varying(100) COLLATE pg_catalog."default",
    org_address character varying(100) COLLATE pg_catalog."default",
@@ -28,7 +28,7 @@ ALTER TABLE public.organization
 
 CREATE TABLE public.employee
 (
-   id serial NOT NULL PRIMARY KEY,
+   id bigserial NOT NULL PRIMARY KEY,
    org_id serial NOT NULL,
    first_name character varying(100) COLLATE pg_catalog."default",
    last_name character varying(100) COLLATE pg_catalog."default",

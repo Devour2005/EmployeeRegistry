@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @ComponentScan
 public class SpringJdbcConfig {
 
+
   @Bean
   @Autowired
   public DataSource mysqlDataSource(JdbcProperties jdbcProperties) {

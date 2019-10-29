@@ -1,13 +1,14 @@
-package com.employeeregistry.task.repositiry.impl;
+package com.employeeregistry.task.repository.impl;
 
 import com.employeeregistry.task.domain.Employee;
-import com.employeeregistry.task.repositiry.AbstractRepository;
-import com.employeeregistry.task.repositiry.IEmployeeRepository;
+import com.employeeregistry.task.repository.AbstractRepository;
+import com.employeeregistry.task.repository.IEmployeeRepository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmployeeRepository extends AbstractRepository implements IEmployeeRepository<Employee> {
 
+    @Autowired
     public EmployeeRepository(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }
@@ -37,12 +39,11 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String query =
             "INSERT INTO employee(org_id, first_name, last_name, emp_position, is_married, years_in_company) "
-                +
-                "VALUES(?, ?, ?, ?, ?, ?)";
+                + "VALUES(?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
-                    .prepareStatement(query);
-            ps.setLong(1, e.getOrgId());
+                    .prepareStatement(query, new String[] { "id"});
+            ps.setLong(1, id);
             ps.setString(2, e.getFirstName());
             ps.setString(3, e.getLastName());
             ps.setString(4, e.getEmpPosition());
@@ -50,15 +51,21 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
             ps.setDouble(6, e.getYearsInCompany());
             return ps;
         }, keyHolder);
-        long empId = keyHolder.getKey().longValue();
+
+        Long empId;
+        if (keyHolder.getKeys().size() > 1) {
+            empId = (Long)keyHolder.getKeys().get("id");
+        } else {
+            empId= keyHolder.getKey().longValue();
+        }
         return get(empId);
     }
 
     @Override
     public Employee update(Long id, Employee e) {
         jdbcTemplate.update(
-            "UPDATE employee SET org_id = ?, first_name = ?, last_name = ?, emp_position = ?, is_married = ? WHERE id = ?",
-                e.getFirstName(), e.getLastName(), e.getEmpPosition(), e.getIsMarried(), e.getYearsInCompany(), id);
+            "UPDATE employee SET org_id = ?, first_name = ?, last_name = ?, emp_position = ?, is_married = ?, years_in_company = ? WHERE id = ?",
+                e.getOrgId(), e.getFirstName(), e.getLastName(), e.getEmpPosition(), e.getIsMarried(), e.getYearsInCompany(), id);
         return get(id);
     }
 

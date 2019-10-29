@@ -1,4 +1,4 @@
-package com.employeeregistry.task.repositiry.impl;
+package com.employeeregistry.task.repository.impl;
 
 import com.employeeregistry.task.domain.Organization;
 import com.employeeregistry.task.domain.Region;
