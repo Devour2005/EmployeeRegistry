@@ -6,6 +6,7 @@ import com.employeeregistry.task.exception.ResourceNotFoundException;
 import com.employeeregistry.task.repository.IEmployeeRepository;
 import com.employeeregistry.task.repository.IOrganizationRepository;
 import com.employeeregistry.task.service.IOrganizationService;
+import com.employeeregistry.task.service.IProffessionFilter;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class OrganizationService implements IOrganizationService<Organization> {
+public class ProffessionService implements IOrganizationService<Organization>,
+    IProffessionFilter {
 
   private IOrganizationRepository<Organization> orgRepository;
   private IEmployeeRepository<Employee> empRepository;
 
   @Autowired
-  public OrganizationService(IOrganizationRepository<Organization> orgRepository,
+  public ProffessionService(IOrganizationRepository<Organization> orgRepository,
                              IEmployeeRepository<Employee> empRepository) {
     this.orgRepository = orgRepository;
     this.empRepository = empRepository;
@@ -61,5 +63,10 @@ public class OrganizationService implements IOrganizationService<Organization> {
       org.setEmployees(empRepository.findAllByOrgId(org.getId()));
     }
     return orgs;
+  }
+
+  @Override
+  public List<String> getCountriesOfOrgsWithDoctorsInEurope(String region, Integer numberOfSpecialists) {
+    return orgRepository.getCountriesOfOrgsWithDoctorsInEurope(region, numberOfSpecialists);
   }
 }

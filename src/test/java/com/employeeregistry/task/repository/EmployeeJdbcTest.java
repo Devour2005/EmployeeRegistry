@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
 
 import com.employeeregistry.task.domain.Employee;
 import com.employeeregistry.task.exception.ResourceNotFoundException;
@@ -52,18 +53,18 @@ public class EmployeeJdbcTest extends AbstractJdbcTest{
 
     Employee actualEmployee = empService.insert(ORG_ID, employee);
 
-    assertEmployee(employee, actualEmployee);
+    assertEquals(actualEmployee, employee);
     verify(empRepository).insert(ORG_ID, employee);
   }
 
   @Test
-  public void existedEmployee_saveEmployee_shouldReturnEmployee() {
+  public void existedEmployee_getEmployee_shouldReturnEmployee() {
     Employee employee = createEmployee();
     when(empRepository.get(ID)).thenReturn(employee);
 
     Employee actualEmployee = empService.get(ID);
 
-    assertEmployee(employee, actualEmployee);
+    assertEquals(actualEmployee, employee);
     verify(empRepository).get(ID);
   }
 

@@ -93,6 +93,15 @@ public class OrganizationRepository extends AbstractRepository implements
     return jdbcTemplate.query("SELECT * FROM organization", this::mapOrganizations);
   }
 
+  @Override
+  public List<String> getCountriesOfOrgsWithDoctorsInEurope(String region,
+      Integer numberOfSpecialists) {
+    return
+        jdbcTemplate.queryForList("SELECT o.country FROM organization o "
+            + "INNER JOIN employee e ON (o.id=e.org_id)"
+            + " WHERE o.region = ? AND e.emp_position = ?", String.class);
+  }
+
   private List<Organization> mapOrganizations(ResultSet rs) throws SQLException {
     List<Organization> orgs = new ArrayList<>();
     while (rs.next()) {

@@ -5,12 +5,13 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
 
 import com.employeeregistry.task.domain.Organization;
 import com.employeeregistry.task.exception.ResourceNotFoundException;
 import com.employeeregistry.task.repository.impl.EmployeeRepository;
 import com.employeeregistry.task.repository.impl.OrganizationRepository;
-import com.employeeregistry.task.service.impl.OrganizationService;
+import com.employeeregistry.task.service.impl.ProffessionService;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -22,7 +23,7 @@ import org.testng.annotations.Test;
 public class OrganizationJdbcTest extends AbstractJdbcTest {
 
   @InjectMocks
-  private OrganizationService orgService;
+  private ProffessionService orgService;
 
   @Mock
   private OrganizationRepository orgRepository;
@@ -41,7 +42,6 @@ public class OrganizationJdbcTest extends AbstractJdbcTest {
     reset(empRepository);
   }
 
-
   // <given>_<action>_<expectedResult>
   @Test
   public void existedOrganization_insertOrganization_shouldReturnOrganization() {
@@ -50,7 +50,7 @@ public class OrganizationJdbcTest extends AbstractJdbcTest {
 
     Organization actualOrg = orgService.insert(org);
 
-    assertOrganization(org, actualOrg);
+    assertEquals(actualOrg, org);
     verify(orgRepository).insert(org);
   }
 
@@ -61,7 +61,7 @@ public class OrganizationJdbcTest extends AbstractJdbcTest {
 
     Organization actualOrg = orgService.get(ORG_ID);
 
-    assertOrganization(org, actualOrg);
+    assertEquals(actualOrg, org);
     verify(orgRepository).get(ORG_ID);
   }
 

@@ -37,13 +37,13 @@ public class OrganizationController {
         return orgService.get(id);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrganization(@PathVariable Long id) {
         orgService.delete(id);
     }
 
-    @GetMapping(value = "/getall")
+    @GetMapping
     public List<Organization> findAll() {
         return orgService.findAll();
     }

@@ -29,9 +29,11 @@ VALUES
 (1, 'Raccoon', 'Tail', 'Developer', false, 5),
 (1, 'Silly', 'Fox', 'PM', true, 5),
 (1, 'Frant', 'Postman', 'Admin', false, 7),
+(1, 'Ben', 'Stanny', 'Admin', false, 7),
 (2, 'John', 'Smit', 'Consultant', false, 3),
-(2, 'Rac', 'TailTe', 'Dev', false, 2),
-(2, 'Marry', 'Gran', 'Seller', false, 6),
+(2, 'Rac', 'TailTe', 'Developer', false, 2),
+(2, 'Marry', 'Gran', 'Developer', false, 6),
 (3, 'Jane', 'Fire', 'Act', false, 4),
 (3, 'Fat', 'Cat', 'Cook', false, 8),
-(3, 'Mike', 'Dick', 'DevOps', true, 1);
+(3, 'Mike', 'Dick', 'DevOps', true, 1),
+(3, 'Den', 'Gran', 'Developer', true, 2);
