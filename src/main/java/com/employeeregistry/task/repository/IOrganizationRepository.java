@@ -1,12 +1,12 @@
 package com.employeeregistry.task.repository;
 
-import com.employeeregistry.task.service.IProffessionFilter;
+import com.employeeregistry.task.service.IProfessionFilter;
 import java.util.List;
 
 public interface IOrganizationRepository<Organization> extends IRegistryRepository<Organization>,
-    IProffessionFilter {
+    IProfessionFilter {
 
   Organization insert(Organization org);
 
-  List<Organization> getOrganizationsByAriaOfActivity(String aria);
+  List<Organization> findOrganizationsByAriaOfActivity(String aria);
 }

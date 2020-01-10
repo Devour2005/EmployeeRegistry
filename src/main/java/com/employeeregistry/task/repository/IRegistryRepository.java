@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IRegistryRepository<T> {
 
-  T get(Long id);
+  T findOne(Long id);
 
   T update(Long id, T t);
 

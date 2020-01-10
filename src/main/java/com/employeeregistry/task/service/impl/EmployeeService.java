@@ -23,8 +23,8 @@ public class EmployeeService implements IEmployeeService<Employee> {
   }
 
   @Override
-  public Employee get(Long id) {
-    return Optional.ofNullable(employeeRepository.get(id))
+  public Employee findOne(Long id) {
+    return Optional.ofNullable(employeeRepository.findOne(id))
         .orElseThrow(() -> new ResourceNotFoundException("Cannot find employee with id " + id));
   }
 
@@ -40,7 +40,7 @@ public class EmployeeService implements IEmployeeService<Employee> {
 
   @Override
   public void delete(Long id) {
-    get(id);
+    findOne(id);
     employeeRepository.delete(id);
   }
 

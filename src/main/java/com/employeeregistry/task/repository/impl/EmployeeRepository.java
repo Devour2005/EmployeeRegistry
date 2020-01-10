@@ -24,7 +24,7 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
     }
 
     @Override
-    public Employee get(Long id) {
+    public Employee findOne(Long id) {
         try {
             return jdbcTemplate
                 .queryForObject("SELECT * FROM employee WHERE id = ?", new Object[] {id},
@@ -58,7 +58,7 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
         } else {
             empId= keyHolder.getKey().longValue();
         }
-        return get(empId);
+        return findOne(empId);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class EmployeeRepository extends AbstractRepository implements IEmployeeR
         jdbcTemplate.update(
             "UPDATE employee SET org_id = ?, first_name = ?, last_name = ?, emp_position = ?, is_married = ?, years_in_company = ? WHERE id = ?",
                 e.getOrgId(), e.getFirstName(), e.getLastName(), e.getEmpPosition(), e.getIsMarried(), e.getYearsInCompany(), id);
-        return get(id);
+        return findOne(id);
     }
 
     @Override

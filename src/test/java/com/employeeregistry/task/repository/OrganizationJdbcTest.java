@@ -1,18 +1,16 @@
 package com.employeeregistry.task.repository;
 
 
-import static org.mockito.Mockito.doNothing;
+import static com.employeeregistry.task.util.TestDataUtil.ORG_ID;
+import static com.employeeregistry.task.util.TestDataUtil.createOrganization;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 
 import com.employeeregistry.task.domain.Organization;
-import com.employeeregistry.task.exception.ResourceNotFoundException;
 import com.employeeregistry.task.repository.impl.EmployeeRepository;
 import com.employeeregistry.task.repository.impl.OrganizationRepository;
-import com.employeeregistry.task.service.impl.ProffessionService;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeClass;
@@ -21,9 +19,6 @@ import org.testng.annotations.Test;
 
 @Test
 public class OrganizationJdbcTest extends AbstractJdbcTest {
-
-  @InjectMocks
-  private ProffessionService orgService;
 
   @Mock
   private OrganizationRepository orgRepository;
@@ -48,7 +43,7 @@ public class OrganizationJdbcTest extends AbstractJdbcTest {
     Organization org = createOrganization();
     when(orgRepository.insert(org)).thenReturn(org);
 
-    Organization actualOrg = orgService.insert(org);
+    Organization actualOrg = orgRepository.insert(org);
 
     assertEquals(actualOrg, org);
     verify(orgRepository).insert(org);
@@ -57,38 +52,11 @@ public class OrganizationJdbcTest extends AbstractJdbcTest {
   @Test
   public void existedOrganization_getOrganization_shouldReturnOrganization() {
     Organization org = createOrganization();
-    when(orgRepository.get(ORG_ID)).thenReturn(org);
+    when(orgRepository.findOne(ORG_ID)).thenReturn(org);
 
-    Organization actualOrg = orgService.get(ORG_ID);
+    Organization actualOrg = orgRepository.findOne(ORG_ID);
 
     assertEquals(actualOrg, org);
-    verify(orgRepository).get(ORG_ID);
-  }
-
-  @Test(expectedExceptions = { ResourceNotFoundException.class })
-  public void notExistedOrganization_deleteOrganization_throwException() {
-    when(orgRepository.get(ORG_ID)).thenReturn(null);
-
-    orgService.delete(ORG_ID);
-  }
-
-  @Test(expectedExceptions = { ResourceNotFoundException.class })
-  public void notExistedOrganization_getOrganization_throwException() {
-    when(orgRepository.get(ORG_ID)).thenReturn(null);
-
-    orgService.get(ORG_ID);
-  }
-
-  @Test
-  public void validOrganization_deleteOrganization_successDeleted() {
-    when(orgRepository.get(ORG_ID)).thenReturn(new Organization());
-    doNothing().when(empRepository).deleteAllByOrgId(ORG_ID);
-    doNothing().when(orgRepository).delete(ORG_ID);
-
-    orgService.delete(ORG_ID);
-
-    verify(orgRepository).get(ORG_ID);
-    verify(empRepository).deleteAllByOrgId(ORG_ID);
-    verify(orgRepository).delete(ORG_ID);
+    verify(orgRepository).findOne(ORG_ID);
   }
 }

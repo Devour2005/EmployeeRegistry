@@ -13,10 +13,10 @@ CREATE TABLE public.organization
    country character varying(50) COLLATE pg_catalog."default",
    city character varying(50) COLLATE pg_catalog."default",
    is_active boolean,
-   aria_of_activity character varying(100) COLLATE pg_catalog."default",
+   area_of_activity character varying(100) COLLATE pg_catalog."default",
    number_of_offices integer,
    region region,
-   UNIQUE(org_name, org_address, country, city, aria_of_activity, region)
+   UNIQUE(org_name, org_address, country, city, area_of_activity, region)
 )
 WITH (
     OIDS = FALSE

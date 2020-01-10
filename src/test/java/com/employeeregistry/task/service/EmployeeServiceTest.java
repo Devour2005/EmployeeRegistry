@@ -1,26 +1,29 @@
-package com.employeeregistry.task.repository;
+package com.employeeregistry.task.service;
 
 
-import static com.employeeregistry.task.util.TestDataUtil.createEmployee;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.testng.Assert.assertEquals;
 
 import com.employeeregistry.task.domain.Employee;
+import com.employeeregistry.task.exception.ResourceNotFoundException;
 import com.employeeregistry.task.repository.impl.EmployeeRepository;
 import com.employeeregistry.task.repository.impl.OrganizationRepository;
+import com.employeeregistry.task.service.impl.EmployeeService;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@Test
-public class EmployeeJdbcTest extends AbstractJdbcTest{
+public class EmployeeServiceTest {
 
   private static final Long ID = 15L;
-  private static final Long ORG_ID = 20L;
+
+  @InjectMocks
+  private EmployeeService empService;
 
   @Mock
   private OrganizationRepository orgRepository;
@@ -40,25 +43,21 @@ public class EmployeeJdbcTest extends AbstractJdbcTest{
   }
 
   // <given>_<action>_<expectedResult>
-  @Test
-  public void existedEmployee_insertEmployee_shouldReturnEmployee() {
-    Employee employee = createEmployee();
-    when(empRepository.insert(ORG_ID, employee)).thenReturn(employee);
+  @Test(expectedExceptions = {ResourceNotFoundException.class})
+  public void notExistedEmployee_findEmployee_throwException() {
+    when(empRepository.findOne(ID)).thenReturn(null);
 
-    Employee actualEmployee = empRepository.insert(ORG_ID, employee);
-
-    assertEquals(actualEmployee, employee);
-    verify(empRepository).insert(ORG_ID, employee);
+    empService.findOne(ID);
   }
 
   @Test
-  public void existedEmployee_getEmployee_shouldReturnEmployee() {
-    Employee employee = createEmployee();
-    when(empRepository.findOne(ID)).thenReturn(employee);
+  public void validEmployee_deleteEmployee_successDeleted() {
+    when(empRepository.findOne(ID)).thenReturn(new Employee());
+    doNothing().when(empRepository).delete(ID);
 
-    Employee actualEmployee = empRepository.findOne(ID);
+    empService.delete(ID);
 
-    assertEquals(actualEmployee, employee);
     verify(empRepository).findOne(ID);
+    verify(empRepository).delete(ID);
   }
 }

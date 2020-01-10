@@ -2,8 +2,7 @@ package com.employeeregistry.task.service;
 
 import java.util.List;
 
-public interface IEmployeeService<Employee> extends IRegistryService<Employee>,
-    IYearsFilter<Employee> {
+public interface IEmployeeService<Employee> extends IRegistryService<Employee> {
 
   Employee insert(Long id, Employee employee);
 
@@ -12,4 +11,6 @@ public interface IEmployeeService<Employee> extends IRegistryService<Employee>,
   void deleteAllByOrgId(Long id);
 
   List<Employee> findByPosition(String position);
+
+  List<Employee> filterByYearsInCompany(Double years);
 }

@@ -34,7 +34,7 @@ public class OrganizationController {
 
     @GetMapping(value = "/{id}")
     public Organization getOrganization(@PathVariable Long id) {
-        return orgService.get(id);
+        return orgService.findOne(id);
     }
 
     @DeleteMapping(value = "/{id}")

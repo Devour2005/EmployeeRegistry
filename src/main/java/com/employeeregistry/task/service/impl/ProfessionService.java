@@ -6,31 +6,32 @@ import com.employeeregistry.task.exception.ResourceNotFoundException;
 import com.employeeregistry.task.repository.IEmployeeRepository;
 import com.employeeregistry.task.repository.IOrganizationRepository;
 import com.employeeregistry.task.service.IOrganizationService;
-import com.employeeregistry.task.service.IProffessionFilter;
+import com.employeeregistry.task.service.IProfessionFilter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ProffessionService implements IOrganizationService<Organization>,
-    IProffessionFilter {
+public class ProfessionService implements IOrganizationService<Organization>,
+    IProfessionFilter {
 
   private IOrganizationRepository<Organization> orgRepository;
   private IEmployeeRepository<Employee> empRepository;
 
   @Autowired
-  public ProffessionService(IOrganizationRepository<Organization> orgRepository,
-                             IEmployeeRepository<Employee> empRepository) {
+  public ProfessionService(IOrganizationRepository<Organization> orgRepository,
+      IEmployeeRepository<Employee> empRepository) {
     this.orgRepository = orgRepository;
     this.empRepository = empRepository;
   }
 
   @Override
-  public Organization get(Long id) {
-    return Optional.ofNullable(orgRepository.get(id))
+  public Organization findOne(Long id) {
+    return Optional.ofNullable(orgRepository.findOne(id))
         .orElseThrow(() -> new ResourceNotFoundException("Cannot find organization with id " + id));
   }
 
@@ -40,8 +41,8 @@ public class ProffessionService implements IOrganizationService<Organization>,
   }
 
   @Override
-  public List<Organization> getOrganizationsByAriaOfActivity(String aria) {
-    return orgRepository.getOrganizationsByAriaOfActivity(aria);
+  public List<Organization> findOrganizationsByAriaOfActivity(String aria) {
+    return orgRepository.findOrganizationsByAriaOfActivity(aria);
   }
 
   @Override
@@ -51,22 +52,20 @@ public class ProffessionService implements IOrganizationService<Organization>,
 
   @Override
   public void delete(Long id) {
-    get(id);
+    findOne(id);
     empRepository.deleteAllByOrgId(id);
     orgRepository.delete(id);
   }
 
   @Override
   public List<Organization> findAll() {
-    List<Organization> orgs = orgRepository.findAll();
-    for (Organization org : orgs) {
-      org.setEmployees(empRepository.findAllByOrgId(org.getId()));
-    }
-    return orgs;
+    return orgRepository.findAll().stream()
+        .peek(o -> o.setEmployees(empRepository.findAllByOrgId(o.getId())))
+        .collect(Collectors.toList());
   }
 
   @Override
-  public List<String> getCountriesOfOrgsWithDoctorsInEurope(String region, Integer numberOfSpecialists) {
-    return orgRepository.getCountriesOfOrgsWithDoctorsInEurope(region, numberOfSpecialists);
+  public List<String> findCountriesOfOrgsWithDoctorsInEurope(String region, Integer numberOfSpecialists) {
+    return orgRepository.findCountriesOfOrgsWithDoctorsInEurope(region, numberOfSpecialists);
   }
 }

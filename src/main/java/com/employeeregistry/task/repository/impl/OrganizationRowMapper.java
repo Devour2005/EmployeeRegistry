@@ -18,7 +18,7 @@ public class OrganizationRowMapper implements RowMapper<Organization> {
     organization.setCountry(rs.getString("country"));
     organization.setCity(rs.getString("city"));
     organization.setIsActive(rs.getBoolean("is_active"));
-    organization.setAriaOfActivity(rs.getString("aria_of_activity"));
+    organization.setAriaOfActivity(rs.getString("area_of_activity"));
     organization.setNumberOfOffices(rs.getInt("number_of_offices"));
     organization.setRegion(Enum.valueOf(Region.class, rs.getString("region")));
     return organization;

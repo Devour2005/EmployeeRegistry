@@ -30,7 +30,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/{id}")
     public Employee getEmployee(@PathVariable Long id) {
-        return employeeService.get(id);
+        return employeeService.findOne(id);
     }
 
     @PostMapping(value = "/{id}")

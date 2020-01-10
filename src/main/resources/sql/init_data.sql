@@ -6,7 +6,7 @@ INSERT INTO public.organization
     country ,
     city ,
     is_active,
-    aria_of_activity,
+    area_of_activity,
     number_of_offices,
     region
  )

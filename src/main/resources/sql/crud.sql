@@ -9,6 +9,6 @@ SELECT * FROM employee WHERE org_id = ?;
 
 SELECT * FROM organization WHERE id = ?;
 INSERT INTO organization VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
-UPDATE organization SET org_name, org_phone, org_address, country, city, is_active, aria_of_activity, number_of_offices, region VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;
+UPDATE organization SET org_name, org_phone, org_address, country, city, is_active, area_of_activity, number_of_offices, region VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?;
 DELETE FROM organization WHERE id = ?;
 SELECT * FROM organization;

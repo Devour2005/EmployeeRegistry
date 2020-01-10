@@ -6,5 +6,5 @@ public interface IOrganizationService<Organization> extends IRegistryService<Org
 
   Organization insert(Organization org);
 
-  List<Organization> getOrganizationsByAriaOfActivity(String aria);
+  List<Organization> findOrganizationsByAriaOfActivity(String aria);
 }
